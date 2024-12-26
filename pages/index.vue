@@ -3,22 +3,24 @@
     <div class="col-span-2 h-screen flex flex-col bg-slate-100">
       <div class="flex-1 overflow-y-auto p-8">
         <app-form-profile
-          v-model:name="data.n"
-          v-model:desc="data.d"
-          v-model:image="data.i"
+          v-model:name="data.name"
+          v-model:desc="data.desc"
+          v-model:image="data.image"
         />
         <app-form-hr />
-        <app-form-social-links
-          v-model:facebook="data.f"
-          v-model:twitter="data.t"
-          v-model:instagram="data.ig"
-          v-model:github="data.gh"
-          v-model:telegram="data.tg"
-          v-model:linkedin="data.l"
-          v-model:email="data.e"
-          v-model:whatsapp="data.w"
-          v-model:youtube="data.y"
-        />
+        <div class="space-y-4">
+          <h2 class="text-lg font-semibold">Social Media Links</h2>
+          <div v-for="(link, platform) in data.socialLinks" :key="platform" class="flex flex-col space-y-2">
+            <label :for="platform" class="text-sm font-medium text-gray-700 capitalize">{{ platform }}</label>
+            <input
+              v-model="data.socialLinks[platform]"
+              :id="platform"
+              type="url"
+              placeholder="Enter URL"
+              class="px-4 py-2 border rounded-lg bg-white"
+            />
+          </div>
+        </div>
         <app-form-hr />
         <app-form-links v-model="data.ls" />
       </div>
@@ -38,7 +40,7 @@
           <icon name="ph:paper-plane-tilt-bold" class="h-4 w-4" />
         </button>
         <a
-          href="https://github.com/fayazara/onelink"
+          href="https://github.com/bark-protocol/"
           target="_blank"
           class="h-12 flex items-center space-x-2 px-4 border-r text-xs font-medium bg-white text-slate-700"
         >
@@ -49,72 +51,75 @@
     </div>
     <app-form-preview :data="data" />
     <a
-      href="https://twitter.com/fayazara"
+      href="https://x.com/bark_protocol"
       target="_blank"
       class="absolute bottom-0 right-0 bg-white rounded-tl-lg shadow px-4 py-1 font-medium text-sm text-gray-500"
     >
-      Made by Fayaz
+      Powered by Solana
     </a>
   </div>
 </template>
 
 <script setup>
 import { encodeData } from "../utils/transformer";
+import { ref } from 'vue';
+
 const data = ref({
-  n: "",
-  d: "",
-  i: "",
-  f: "",
-  t: "",
-  ig: "",
-  gh: "",
-  tg: "",
-  l: "",
-  e: "",
-  w: "",
-  y: "",
+  name: "",
+  desc: "",
+  image: "",
+  socialLinks: {
+    twitter: "",
+    instagram: "",
+    medium: "",
+    github: "",
+    telegram: "",
+    discord: "",
+    email: "",
+    tiktok: "",
+    youtube: "",
+  },
   ls: [],
 });
 
 const prefillDemoData = () => {
   data.value = {
-    n: "John Snow",
-    d: "I’m John Snow, the king in the north. I know Nothing.",
-    i: "https://i.insider.com/56743fad72f2c12a008b6cc0",
-    f: "https://www.facebook.com/john_snow",
-    t: "https://twitter.com/john_snow",
-    ig: "https://www.instagram.com/john_snow",
-    e: "mail@john_snow.cc",
-    gh: "https://github.com/john_snow",
-    tg: "https://t.me/john_snow",
-    w: "+918888888888",
-    y: "https://youtube.com/@john_snow",
-    l: "https://linkedin.com/john_snow",
+    name: "BARK Protocol",
+    desc: "Innovating in DeFi and SocialFi on Solana through BARK, with a mission to empower communities and drive impactful charity initiatives.",
+    socialLinks: {
+      twitter: "https://twitter.com/bark_protocol",
+      instagram: "https://www.instagram.com/bark.protocol",
+      email: "mail@barkprotocol.net",
+      medium: "https://medium.com/@barkprotocol",
+      github: "https://github.com/bark_protocol",
+      telegram: "https://t.me/bark_protocol",
+      youtube: "https://youtube.com/@bark_protocol",
+    },
     ls: [
       {
-        l: "My Website",
-        i: "ph:globe-duotone",
-        u: "https://example.com",
+        label: "Website",
+        icon: "ph:globe-duotone",
+        url: "https://barkprotocol.net",
       },
       {
-        l: "Amazon wishlist",
-        i: "ant-design:amazon-outlined",
-        u: "https://amazon.in",
+        label: "Wishlist",
+        icon: "ant-design:amazon-outlined",
+        url: "https://amazon.in",
       },
       {
-        l: "React JS course",
-        i: "grommet-icons:reactjs",
-        u: "https://reactjs.org/",
+        label: "React JS course",
+        icon: "grommet-icons:reactjs",
+        url: "https://reactjs.org/",
       },
       {
-        l: "Donate for our cause",
-        i: "iconoir:donate",
-        u: "https://who.int",
+        label: "Donate for blink",
+        icon: "iconoir:donate",
+        url: "https://who.int",
       },
       {
-        l: "Download my resume",
-        i: "ph:file-pdf",
-        u: "https://google.com",
+        label: "Download resume",
+        icon: "ph:file-pdf",
+        url: "https://google.com",
       },
     ],
   };
@@ -127,3 +132,7 @@ const publish = () => {
   });
 };
 </script>
+
+<style scoped>
+/* Add your styles for better layout or design here */
+</style>

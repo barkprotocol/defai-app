@@ -1,4 +1,4 @@
-<template>
+<bark>
   <main class="p-4 bg-white h-full w-full space-y-8 pt-12 max-w-lg mx-auto">
     <div class="text-center">
       <div
@@ -90,16 +90,16 @@ const props = defineProps({
 
 const allSocialLinksAreEmpty = computed(() => {
   return (
-    !props.acc.f &&
+    !props.acc.d &&
     !props.acc.t &&
     !props.acc.ig &&
     !props.acc.m &&
     !props.acc.tg &&
-    !props.acc.w &&
+    !props.acc.x &&
     !props.acc.y &&
     !props.acc.e &&
     !props.acc.gh &&
-    !props.acc.l
+    !props.acc.x
   );
 });
 </script>

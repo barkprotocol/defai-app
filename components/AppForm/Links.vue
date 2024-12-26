@@ -42,7 +42,7 @@
                     name="iconKey"
                     id="iconKey"
                     v-model="link.i"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
                   />
                 </div>
                 <div>
@@ -56,7 +56,7 @@
                     name="label"
                     id="label"
                     v-model="link.l"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
                   />
                 </div>
                 <div class="col-span-2">
@@ -70,7 +70,7 @@
                     name="url"
                     id="url"
                     v-model="link.u"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-gray-500 focus:ring-gray-500 sm:text-sm"
                   />
                 </div>
               </div>

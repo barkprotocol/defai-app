@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- Conditionally render based on decodedData -->
     <templates-simple v-if="decodedData" :acc="decodedData" />
     <div
       v-else
@@ -9,11 +10,26 @@
     </div>
   </div>
 </template>
+
 <script setup>
 import { decodeData } from "../utils/transformer";
+import { ref, watchEffect } from 'vue';
+import { useRoute } from 'vue-router';
+
+// Access the route query parameters
 const route = useRoute();
 const acc = route.query.data;
-const decodedData = ref({});
-decodedData.value = decodeData(acc);
+
+// Declare the decodedData as a reactive reference
+const decodedData = ref(null);
+
+// Watch the query parameter to decode the data reactively
+watchEffect(() => {
+  if (acc) {
+    decodedData.value = decodeData(acc);
+  }
+});
 </script>
-<style scoped></style>
+
+<style scoped>
+</style>
