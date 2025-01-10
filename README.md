@@ -1,67 +1,106 @@
+## BARK | Autonomous AI Agent Overview
+
+**Objective**:  
+The Autonomous AI Agent aims to automate social media management, starting with Twitter, and integrate blockchain functionality for tasks such as cryptocurrency tipping and transactions. It utilizes Claude AI for natural language understanding and generation to maintain intelligent, context-aware conversations with users. The long-term goal is to extend this functionality to additional social media platforms.
+
 ---
-Build and Ship Nuxt 3 fullstack starter apps with Auth, DB, Payments, Email & File storage 
 
-Try [Supersaas today](https://supersaas.dev)
+### **Key Features**
+
+1. **Autonomous Social Media Management**:
+   - Integration with Twitter for reading mentions, replies, and direct messages.
+   - Ability to generate and publish tweets autonomously.
+   - Intelligent engagement based on topics and hashtags like $SOL and $BARK.
+   - Likes, replies, and interactions are automated based on community activity.
+
+2. **Cryptocurrency Tipping & Transactions**:
+   - Secure wallet management for storing private keys and making cryptocurrency microtransactions.
+   - Blockchain API interaction using **solana/web3.js**.
+   - Tips and rewards for users meeting certain conditions (e.g., engagement with tweets).
+
+3. **Scalable and Extensible Architecture**:
+   - Easily extendable to other platforms beyond Twitter (e.g., Telegram, Reddit).
+   - Can integrate with different Large Language Models (LLMs) to optimize interaction.
+   - Support for multiple blockchain networks and token standards.
+
+4. **Event-Driven & Secure Architecture**:
+   - Real-time event fetching from Twitter (mentions, replies, DMs).
+   - Context-aware responses with persistent conversation history.
+   - Rate limiting, retry mechanisms, and error handling to ensure stability.
+
+5. **Compliance & Safety**:
+   - Built-in content filtering, moderation tools, and anti-spam measures.
+   - Regular auditing and logging to ensure transparency and compliance.
+
 ---
 
+### **Tech Stack & Integration**
 
-[<img src="https://essentials.supersaas.dev/supersaas-banner.png">](https://supersaas.dev?ref=github-onelink)
+- **Backend**: **TypeScript** ensures type safety and scalability, enhancing code reliability.
+- **LLM Integration**: **Claude API** for natural language understanding, ensuring context-aware responses.
+- **Blockchain**: Uses **ethers.js** for secure wallet management and interaction with the Ethereum blockchain.
+- **Twitter API**: Integrated with **twitter-api-v2** for fetching mentions, replies, and publishing tweets.
 
-# Onelink
+---
 
-Onelink is an experimental link-in-bio tool, where the data lives in the URL. 
+### **Getting Started**
 
+#### Prerequisites:
+- **Node.js** (v16+)
+- **Twitter Developer Account** with credentials for the API.
+- **Claude API Key** from [Anthropic](https://www.anthropic.com/).
 
+#### Installation:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/bark-protocol/Autonomous-AI-Agent.git
+   ```
 
-![Screenshot2023-01-30 at 00 40 04@2x](https://user-images.githubusercontent.com/15716057/215350057-5fbf81f5-5f33-4cbe-98ba-0ced8b3c09c8.jpg)
+2. Install dependencies using **pnpm**:
+   ```bash
+   pnpm install
+   ```
 
-> **Note**
-> Since the URL can become very long, it's better to use a link shortener like https://dub.co
+3. Set up your environment variables by copying `.env.example` to `.env` and filling in your API keys.
 
-Here's a demo page
-https://onelink-nu.vercel.app/1?data=eyJuIjoiSm9obiBTbm93IiwiZCI6IknigJltIEpvaG4gU25vdywgdGhlIGtpbmcgaW4gdGhlIG5vcnRoLiBJIGtub3cgTm90aGluZy4iLCJpIjoiaHR0cHM6Ly9pLmluc2lkZXIuY29tLzU2NzQzZmFkNzJmMmMxMmEwMDhiNmNjMCIsImYiOiJodHRwczovL3d3dy5mYWNlYm9vay5jb20vam9obl9zbm93IiwidCI6Imh0dHBzOi8vdHdpdHRlci5jb20vam9obl9zbm93IiwiaWciOiJodHRwczovL3d3dy5pbnN0YWdyYW0uY29tL2pvaG5fc25vdyIsImUiOiJtYWlsQGpvaG5fc25vdy5jYyIsImdoIjoiaHR0cHM6Ly9naXRodWIuY29tL2pvaG5fc25vdyIsInRnIjoiaHR0cHM6Ly90Lm1lL2pvaG5fc25vdyIsInciOiIrOTE4ODg4ODg4ODg4IiwieSI6Imh0dHBzOi8veW91dHViZS5jb20vQGpvaG5fc25vdyIsImwiOiJodHRwczovL2xpbmtlZGluLmNvbS9qb2huX3Nub3ciLCJscyI6W3sibCI6Ik15IFdlYnNpdGUiLCJpIjoicGg6Z2xvYmUtZHVvdG9uZSIsInUiOiJodHRwczovL2V4YW1wbGUuY29tIn0seyJsIjoiQW1hem9uIHdpc2hsaXN0IiwiaSI6ImFudC1kZXNpZ246YW1hem9uLW91dGxpbmVkIiwidSI6Imh0dHBzOi8vYW1hem9uLmluIn0seyJsIjoiUmVhY3QgSlMgY291cnNlIiwiaSI6Imdyb21tZXQtaWNvbnM6cmVhY3RqcyIsInUiOiJodHRwczovL3JlYWN0anMub3JnLyJ9LHsibCI6IkRvbmF0ZSBmb3Igb3VyIGNhdXNlIiwiaSI6Imljb25vaXI6ZG9uYXRlIiwidSI6Imh0dHBzOi8vd2hvLmludCJ9LHsibCI6IkRvd25sb2FkIG15IHJlc3VtZSIsImkiOiJwaDpmaWxlLXBkZiIsInUiOiJodHRwczovL2dvb2dsZS5jb20ifV19
+4. Build the project:
+   ```bash
+   pnpm run build
+   ```
 
-The data is converted to a base 64 string which we onelink uses as a query parameter. I have tried to reduce the json keys to be as small as possible
+5. Start the agent:
+   ```bash
+   pnpm start
+   ```
 
-Roadmap.
-1. Templates - make different templates, the `/1` after the host is basically a template here.
-2. Refactor code - a lot of repeated boilerplate code is added here - refactor it properly.
-
-## Setup locally
-
-Make sure to install the dependencies:
-
+For development:
 ```bash
-# yarn
-yarn install
-
-# npm
-npm install
-
-# pnpm
-pnpm install --shamefully-hoist
+pnpm run dev
 ```
 
-## Development Server
+---
 
-Start the development server on http://localhost:3000
+### **Project Structure**
 
-```bash
-npm run dev
+```
+src/
+├── index.ts              # Main entry point
+├── services/             # Core functionality
+│   ├── TwitterApi.ts     # Handles Twitter API interactions
+│   ├── LLMClient.ts      # Claude API for language model integration
+│   └── WalletManager.ts  # Ethereum wallet management
+└── types/                # TypeScript definitions
+    └── index.ts          # Shared types and interfaces
 ```
 
-## Production
+---
 
-Build the application for production:
+### **Contributing**
 
-```bash
-npm run build
-```
+The project is open to contributions! If you're interested in improving the conversation strategies, adding new social media platform integrations, or enhancing security measures, check out the [Contributing Guidelines](CONTRIBUTING.md).
 
-Locally preview production build:
+---
 
-```bash
-npm run preview
-```
+### **License**
 
-Checkout the [deployment documentation](https://v3.nuxtjs.org/guide/deploy/presets) for more information.
+Licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
