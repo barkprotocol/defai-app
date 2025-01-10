@@ -19,5 +19,5 @@ export const OWNER_ADDRESSES = {
 
 export const PRICES = {
   BARK: 0.00001, // in USDC
-  VESTING: 0.000004 // in USDC
+  VESTING: 0.0000025 // in USDC
 };
