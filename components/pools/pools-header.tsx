@@ -1,10 +1,17 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 
 export function PoolsHeader() {
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+  };
+
   return (
     <div className="flex flex-col md:flex-row justify-between items-center gap-4 mb-8">
       <div>
@@ -19,9 +26,11 @@ export function PoolsHeader() {
             className="pl-10"
             autoComplete="off"
             spellCheck="false"
+            value={searchQuery}
+            onChange={handleSearchChange}
           />
         </div>
-        <Button>Connect Wallet</Button>
+        <Button aria-label="Connect wallet">Connect Wallet</Button>
       </div>
     </div>
   );

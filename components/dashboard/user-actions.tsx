@@ -7,7 +7,7 @@ import Link from "next/link";
 export function UserActions() {
   return (
     <div className="flex items-center space-x-3 flex-wrap md:flex-nowrap">
-      <Link href="/pools" aria-label="Add a new liquidity pool">
+      <Link href="/pools" aria-label="Navigate to add a new liquidity pool">
         <Button className="bg-gray-900 text-white hover:bg-gray-800 transition-all duration-300 transform hover:scale-105">
           <Plus className="h-4 w-4 mr-2" />
           Add Pool
@@ -15,7 +15,7 @@ export function UserActions() {
       </Link>
       <Button 
         variant="outline" 
-        aria-label="Rebalance your liquidity pools" 
+        aria-label="Rebalance your liquidity pools to optimize" 
         className="border-gray-600 text-gray-600 hover:bg-gray-200 transition-all duration-300 transform hover:scale-105"
       >
         <RefreshCw className="h-4 w-4 mr-2" />
@@ -23,7 +23,7 @@ export function UserActions() {
       </Button>
       <Button 
         variant="outline" 
-        aria-label="Export your pool data" 
+        aria-label="Export liquidity pool data for analysis" 
         className="border-gray-600 text-gray-600 hover:bg-gray-200 transition-all duration-300 transform hover:scale-105"
       >
         <Download className="h-4 w-4 mr-2" />

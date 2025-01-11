@@ -32,4 +32,15 @@ export const ORCA_POOLS = [
     description: "BARK token and USDC pool on Orca with good liquidity",
     features: ["Stable returns", "Medium liquidity", "Community-backed"],
   },
+  {
+    name: "SOL-BARK",
+    platform: "Orca",
+    tvl: 5_000_000, // Example value, adjust based on real data
+    apy: 15.0, // Example value, adjust based on real data
+    volume24h: 250_000, // Example value, adjust based on real data
+    tokens: ["SOL", "BARK"],
+    risk: "Medium", // Adjust based on real risk level
+    description: "SOL and BARK token pool on Orca with medium liquidity",
+    features: ["Emerging pool", "Community-focused", "Potential for growth"],
+  },
 ];

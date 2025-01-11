@@ -12,14 +12,14 @@ interface BuyTokenModalProps {
 }
 
 export function BuyTokenModal({ isOpen, onClose, defaultAmount }: BuyTokenModalProps) {
-  const { connected } = useSolanaWallet();
+  const { connected, isConnecting } = useSolanaWallet();
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={onClose} aria-labelledby="buy-token-modal-title" aria-describedby="buy-token-modal-description">
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Buy BARK Tokens</DialogTitle>
-          <DialogDescription>
+          <DialogTitle id="buy-token-modal-title">Buy BARK Tokens</DialogTitle>
+          <DialogDescription id="buy-token-modal-description">
             Enter the amount and select your payment token to purchase BARK tokens.
           </DialogDescription>
         </DialogHeader>
@@ -31,6 +31,9 @@ export function BuyTokenModal({ isOpen, onClose, defaultAmount }: BuyTokenModalP
                 Connect your wallet to buy BARK tokens
               </p>
               <WalletConnectButton />
+              {isConnecting && (
+                <p className="text-sm mt-2 text-muted-foreground">Connecting your wallet...</p>
+              )}
             </div>
           ) : (
             <BuyTokenForm onSuccess={onClose} defaultAmount={defaultAmount} />

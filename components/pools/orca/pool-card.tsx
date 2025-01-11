@@ -3,7 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 
 interface OrcaPoolCardProps {
@@ -23,6 +23,25 @@ interface OrcaPoolCardProps {
 export function OrcaPoolCard({ pool }: OrcaPoolCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
+  // Memoizing tokens and features for better performance
+  const tokenInitials = useMemo(() => {
+    return pool.tokens.map((token, i) => (
+      <div 
+        key={token}
+        className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center font-medium"
+        style={{ zIndex: pool.tokens.length - i }}
+      >
+        {token.slice(0, 1)}
+      </div>
+    ));
+  }, [pool.tokens]);
+
+  const featureBadges = useMemo(() => {
+    return pool.features.map((feature) => (
+      <Badge key={feature} variant="outline">{feature}</Badge>
+    ));
+  }, [pool.features]);
+
   return (
     <Card 
       className="transition-all duration-300 hover:shadow-lg"
@@ -33,22 +52,18 @@ export function OrcaPoolCard({ pool }: OrcaPoolCardProps) {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <div className="flex -space-x-2">
-              {pool.tokens.map((token, i) => (
-                <div 
-                  key={token}
-                  className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center font-medium"
-                  style={{ zIndex: pool.tokens.length - i }}
-                >
-                  {token.slice(0, 1)}
-                </div>
-              ))}
+              {tokenInitials}
             </div>
             <div>
               <h3 className="font-semibold">{pool.name}</h3>
               <p className="text-sm text-muted-foreground">{pool.platform}</p>
             </div>
           </div>
-          <Badge variant={pool.risk === "High" ? "destructive" : "secondary"}>
+          <Badge 
+            variant={pool.risk === "High" ? "destructive" : "secondary"}
+            className="cursor-help"
+            title={pool.risk === "High" ? "High risk: Consider the volatility." : "Low risk: More stable returns."}
+          >
             {pool.risk}
           </Badge>
         </div>
@@ -68,14 +83,14 @@ export function OrcaPoolCard({ pool }: OrcaPoolCardProps) {
         </div>
         <p className="text-sm text-muted-foreground mb-4">{pool.description}</p>
         <div className="flex flex-wrap gap-2 mb-4">
-          {pool.features.map((feature) => (
-            <Badge key={feature} variant="outline">{feature}</Badge>
-          ))}
+          {featureBadges}
         </div>
         <Link href={`/pools/orca/${pool.name.toLowerCase()}`}>
-          <Button className="w-full" variant={isHovered ? "default" : "outline"}>
-            View Details
-          </Button>
+          <a>
+            <Button className="w-full" variant={isHovered ? "default" : "outline"}>
+              View Details
+            </Button>
+          </a>
         </Link>
       </CardContent>
     </Card>

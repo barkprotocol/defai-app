@@ -3,14 +3,31 @@
 import { OrcaPoolCard } from "./orca/pool-card";
 import { RaydiumPoolCard } from "./raydium/pool-card";
 
+interface Pool {
+  name: string;
+  // Add other pool-specific properties here, for example:
+  tvl: number;
+  apy: number;
+  // Adjust to match the structure of your pool data
+}
+
 interface PlatformSectionProps {
   title: string;
   platform: "orca" | "raydium";
-  pools: any[];
+  pools: Pool[];
 }
 
 export function PlatformSection({ title, platform, pools }: PlatformSectionProps) {
   const PoolCard = platform === "orca" ? OrcaPoolCard : RaydiumPoolCard;
+
+  if (pools.length === 0) {
+    return (
+      <div>
+        <h2 className="text-2xl font-semibold mb-4">{title}</h2>
+        <p>No pools available for this platform.</p>
+      </div>
+    );
+  }
 
   return (
     <div>

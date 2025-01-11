@@ -3,15 +3,32 @@ import { useWalletModal } from '@solana/wallet-adapter-react-ui';
 import { Button } from "@/components/ui/button";
 import { Wallet } from "lucide-react";
 import { shortenAddress } from "@/lib/utils";
-import { useCallback } from 'react';
+import { useCallback, useState } from 'react';
 
 export function WalletConnectButton() {
   const { connected, connecting, publicKey, disconnect } = useWallet();
   const { setVisible } = useWalletModal();
+  const [isError, setIsError] = useState(false);
 
   const handleConnect = useCallback(() => {
-    setVisible(true);
+    try {
+      setVisible(true);
+      setIsError(false);
+    } catch (error) {
+      console.error("Error connecting wallet:", error);
+      setIsError(true);
+    }
   }, [setVisible]);
+
+  const handleDisconnect = useCallback(() => {
+    try {
+      disconnect();
+      setIsError(false);
+    } catch (error) {
+      console.error("Error disconnecting wallet:", error);
+      setIsError(true);
+    }
+  }, [disconnect]);
 
   if (connecting) {
     return (
@@ -32,9 +49,14 @@ export function WalletConnectButton() {
   }
 
   return (
-    <Button variant="outline" onClick={disconnect} className="gap-2">
+    <Button 
+      variant="outline" 
+      onClick={handleDisconnect} 
+      className="gap-2" 
+      aria-label="Disconnect wallet"
+    >
       <Wallet className="h-4 w-4" />
-      {shortenAddress(publicKey.toString())}
+      {isError ? "Error!" : shortenAddress(publicKey.toString())}
     </Button>
   );
 }

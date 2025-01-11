@@ -16,11 +16,11 @@ const options = [
       "Immediate token access",
       "No vesting period",
       "Full platform benefits",
-      "Instant staking eligibility"
+      "Instant staking eligibility",
     ],
     icon: Rocket,
     badge: "Popular",
-    badgeVariant: "default" as const
+    badgeVariant: "default" as const,
   },
   {
     title: "Strategic Sale",
@@ -30,12 +30,12 @@ const options = [
       "50% price discount",
       "1-year linear vesting",
       "Early adopter benefits",
-      "Higher staking rewards"
+      "Higher staking rewards",
     ],
     icon: Lock,
     badge: "Best Value",
-    badgeVariant: "secondary" as const
-  }
+    badgeVariant: "secondary" as const,
+  },
 ];
 
 export function SaleOptions() {
@@ -45,46 +45,55 @@ export function SaleOptions() {
   return (
     <div className="grid md:grid-cols-2 gap-8 mb-16">
       {options.map((option) => (
-        <Card 
+        <Card
           key={option.title}
-          className={`relative overflow-hidden transition-all duration-300 hover:shadow-xl ${
-            selectedOption === option.title ? 'ring-2 ring-primary' : ''
-          }`}
+          className={`relative overflow-hidden transition-all duration-300 hover:shadow-xl dark:bg-gray-800 dark:text-white ${
+            selectedOption === option.title ? "ring-2 ring-primary" : ""
+          } bg-white text-gray-950 shadow-md rounded-lg`}
           onClick={() => setSelectedOption(option.title)}
         >
           <div className="absolute top-4 right-4">
-            <Badge variant={option.badgeVariant}>{option.badge}</Badge>
+            <Badge variant={option.badgeVariant} className="bg-black text-white">
+              {option.badge}
+            </Badge>
           </div>
           <CardContent className="p-8">
-            <option.icon className="h-10 w-10 text-primary mb-6" />
-            <h3 className="text-2xl font-bold mb-2">{option.title}</h3>
+            <option.icon className="h-10 w-10 text-[#dbcfc7] mb-6" />
+            <h3 className="text-2xl font-bold mb-2 text-gray-950 dark:text-white">
+              {option.title}
+            </h3>
             <p className="text-muted-foreground mb-4">{option.description}</p>
             <div className="mb-6">
-              <span className="text-3xl font-bold">{option.price}</span>
+              <span className="text-3xl font-bold text-gray-950 dark:text-white">
+                {option.price}
+              </span>
               <span className="text-muted-foreground"> per BARK</span>
             </div>
             <ul className="space-y-3 mb-6">
               {option.features.map((feature) => (
-                <li key={feature} className="flex items-center gap-2 text-sm">
-                  <Shield className="h-4 w-4 text-primary" />
+                <li
+                  key={feature}
+                  className="flex items-center gap-2 text-sm text-gray-950 dark:text-gray-200"
+                >
+                  <Shield className="h-4 w-4 text-[#dbcfc7]" />
                   {feature}
                 </li>
               ))}
             </ul>
-            <Button 
-              className="w-full" 
+            <Button
+              className="w-full bg-black text-white"
               size="lg"
               onClick={() => setIsBuyModalOpen(true)}
               variant={option.title === "Strategic Sale" ? "outline" : "default"}
             >
               {option.title === "Strategic Sale" ? (
                 <>
-                  <Clock className="mr-2 h-4 w-4" />
+                  <Clock className="mr-2 h-4 w-4 text-[#dbcfc7]" />
                   Join with Vesting
                 </>
               ) : (
                 <>
-                  <Rocket className="mr-2 h-4 w-4" />
+                  <Rocket className="mr-2 h-4 w-4 text-[#dbcfc7]" />
                   Buy Instantly
                 </>
               )}
@@ -93,10 +102,7 @@ export function SaleOptions() {
         </Card>
       ))}
 
-      <BuyTokenModal 
-        isOpen={isBuyModalOpen}
-        onClose={() => setIsBuyModalOpen(false)}
-      />
+      <BuyTokenModal isOpen={isBuyModalOpen} onClose={() => setIsBuyModalOpen(false)} />
     </div>
   );
 }

@@ -152,7 +152,7 @@
           }
         },
         {
-          "name": "user_btb_account",
+          "name": "user_bark_account",
           "writable": true,
           "pda": {
             "seeds": [
@@ -410,7 +410,7 @@
           }
         },
         {
-          "name": "owner_btb_account",
+          "name": "owner_bark_account",
           "writable": true
         },
         {
@@ -855,7 +855,7 @@
     },
     {
       "code": 6001,
-      "name": "ZeroBARKPrice",
+      "name": "ZeroBarkPrice",
       "msg": "BARK price must be greater than 0"
     },
     {

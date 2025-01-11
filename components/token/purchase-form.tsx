@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useTokenPurchase } from "@/hooks/use-token-purchase";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { toast } from "sonner";
 
 interface PurchaseFormProps {
   onSuccess?: () => void;
@@ -18,9 +19,19 @@ export function PurchaseForm({ onSuccess }: PurchaseFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validate amount
+    if (!amount || parseFloat(amount) <= 0) {
+      toast.error("Please enter a valid amount");
+      return;
+    }
+
     const success = await purchaseToken(parseFloat(amount), tokenType);
     if (success) {
+      toast.success("Purchase successful!");
       onSuccess?.();
+    } else {
+      toast.error("Purchase failed. Please try again.");
     }
   };
 
@@ -97,7 +108,7 @@ export function PurchaseForm({ onSuccess }: PurchaseFormProps) {
           <Button 
             type="submit" 
             className="w-full" 
-            disabled={isLoading}
+            disabled={isLoading || !amount || parseFloat(amount) <= 0}
           >
             {isLoading ? "Processing..." : "Buy BARK"}
           </Button>

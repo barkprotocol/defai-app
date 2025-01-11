@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { LineChart, Line, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 const initialData = [
   { date: "Jan 1", value: 25000 },
@@ -49,6 +49,14 @@ export function UserPerformance() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Debounced function to optimize hover state update
+  const debouncedSetHoveredValue = useCallback(
+    debounce((value: number) => {
+      setHoveredValue(value);
+    }, 300),
+    []
+  );
+
   return (
     <Card>
       <CardHeader>
@@ -69,7 +77,7 @@ export function UserPerformance() {
               margin={{ top: 5, right: 5, bottom: 5, left: 25 }}
               onMouseMove={(e: any) => {
                 if (e?.activePayload?.[0]) {
-                  setHoveredValue(e.activePayload[0].value);
+                  debouncedSetHoveredValue(e.activePayload[0].value);
                 }
               }}
               onMouseLeave={() => setHoveredValue(null)}
@@ -101,4 +109,13 @@ export function UserPerformance() {
       </CardContent>
     </Card>
   );
+}
+
+// Debounce function to limit how often the callback is invoked
+function debounce(func: Function, wait: number) {
+  let timeout: NodeJS.Timeout;
+  return function executedFunction(...args: any) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
 }

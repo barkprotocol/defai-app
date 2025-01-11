@@ -89,7 +89,7 @@ export function UserMetrics() {
           }}
         >
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
+            <CardTitle className="text-sm font-medium" aria-label={metric.title}>
               {metric.title}
             </CardTitle>
             <metric.icon className="h-4 w-4 text-muted-foreground animate-pulse" />
@@ -103,7 +103,7 @@ export function UserMetrics() {
               />
             </div>
             {metric.trend !== "neutral" && (
-              <p className="text-xs text-muted-foreground flex items-center gap-1">
+              <p className="text-xs flex items-center gap-1">
                 <span className={metric.trend === "up" ? "text-green-500" : "text-red-500"}>
                   {metric.trend === "up" ? "+" : "-"}{metric.change}%
                 </span>
