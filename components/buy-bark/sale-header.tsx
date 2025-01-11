@@ -28,8 +28,8 @@ export function SaleHeader() {
             Calculate Tokens <ArrowRight className="h-4 w-4" />
           </Button>
         </Link>
-        <Link href="https://barkprotocol.net" target="_blank">
-          <Button variant="outline" size="lg">Official Website</Button>
+        <Link href="https://docs.barkprotocol.net/tokenomics" target="_blank">
+          <Button variant="outline" size="lg">Learn More</Button>
         </Link>
       </div>
     </div>

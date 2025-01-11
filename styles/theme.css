@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%; /* White background for light theme */
+    --foreground: 240 10% 3.9%; /* Black text */
+    --card: 0 0% 100%; /* White card background */
+    --card-foreground: 240 10% 3.9%; /* Black text in cards */
+    --popover: 0 0% 100%; /* White popover background */
+    --popover-foreground: 240 10% 3.9%; /* Black text in popovers */
+    --primary: 0 72.2% 50.6%; /* Primary color */
+    --primary-foreground: 0 85.7% 97.3%; /* Light text on primary */
+    --secondary: 240 4.8% 95.9%; /* Light gray secondary color */
+    --secondary-foreground: 240 5.9% 10%; /* Dark gray text on secondary */
+    --muted: 240 4.8% 95.9%; /* Muted color (light gray) */
+    --muted-foreground: 240 3.8% 46.1%; /* Dark gray muted text */
+    --accent: 240 4.8% 95.9%; /* Light accent color */
+    --accent-foreground: 240 5.9% 10%; /* Dark gray text on accent */
+    --destructive: 0 84.2% 60.2%; /* Red color for destructive actions */
+    --destructive-foreground: 0 0% 98%; /* White text on destructive */
+    --border: 240 5.9% 90%; /* Light gray borders */
+    --input: 240 5.9% 90%; /* Light gray input backgrounds */
+    --ring: 240 5.9% 10%; /* Dark gray ring (focus outline) */
+    --radius: 0.75rem; /* Rounded corners */
+    --icon-color: #DBCFC7; /* Icon color (light beige) */
+  }
+
+  .dark {
+    --background: 240 10% 3.9%; /* Dark background for dark theme */
+    --foreground: 0 0% 98%; /* Light text on dark background */
+    --card: 240 10% 3.9%; /* Dark card background */
+    --card-foreground: 0 0% 98%; /* Light text in dark cards */
+    --popover: 240 10% 3.9%; /* Dark popover background */
+    --popover-foreground: 0 0% 98%; /* Light text in dark popovers */
+    --primary: 0 72.2% 50.6%; /* Primary color */
+    --primary-foreground: 0 85.7% 97.3%; /* Light text on primary */
+    --secondary: 240 3.7% 15.9%; /* Dark gray secondary color */
+    --secondary-foreground: 0 0% 98%; /* Light text on dark secondary */
+    --muted: 240 3.7% 15.9%; /* Dark muted color */
+    --muted-foreground: 240 5% 64.9%; /* Lighter gray muted text */
+    --accent: 240 3.7% 15.9%; /* Dark accent color */
+    --accent-foreground: 0 0% 98%; /* Light text on dark accent */
+    --destructive: 0 62.8% 30.6%; /* Darker red for destructive actions */
+    --destructive-foreground: 0 0% 98%; /* White text on destructive */
+    --border: 240 3.7% 15.9%; /* Dark border */
+    --input: 240 3.7% 15.9%; /* Dark input backgrounds */
+    --ring: 240 4.9% 83.9%; /* Lighter ring for focus in dark mode */
+    --icon-color: #DBCFC7; /* Icon color (light beige) */
+  }
+}
+
+/* Add utility classes for icon colors */
+.icon {
+  color: var(--icon-color);
+}

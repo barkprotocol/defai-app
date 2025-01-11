@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowUpRight, Settings } from "lucide-react";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { Spinner } from "@/components/ui/spinner";
 
 const userPools = [
   {
@@ -57,7 +58,7 @@ export function UserPools() {
           <CardTitle>My Pools</CardTitle>
         </CardHeader>
         <CardContent className="flex justify-center items-center">
-          <p className="text-muted-foreground">Loading...</p>
+          <Spinner className="animate-spin" /> {/* Add a spinner component */}
         </CardContent>
       </Card>
     );
@@ -70,7 +71,7 @@ export function UserPools() {
           <CardTitle>My Pools</CardTitle>
         </CardHeader>
         <CardContent className="flex justify-center items-center">
-          <p className="text-red-500">{error}</p>
+          <p className="text-red-500">{error}</p> {/* Error message with red text */}
         </CardContent>
       </Card>
     );

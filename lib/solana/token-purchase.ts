@@ -8,10 +8,6 @@ export async function createBuyTokenTransaction(
   amount: number,
   tokenType: string
 ) {
-  if (amount <= 0) {
-    throw new Error('Amount must be greater than zero.');
-  }
-
   try {
     const program = await getProgramInstance();
 
@@ -23,24 +19,24 @@ export async function createBuyTokenTransaction(
     const userTokenAccount = await getAssociatedTokenAddress(tokenMint, wallet);
     const userBarkAccount = await getAssociatedTokenAddress(barkMint, wallet);
 
-    // Derive PDA for the BARK sale account
+    // Get PDA for the BARK sale account
     const [barkSaleAccount] = web3.PublicKey.findProgramAddressSync(
-      [Buffer.from('bark-sale-account'), wallet.toBuffer()],
+      [Buffer.from("bark-sale-account"), wallet.toBuffer()],
       new web3.PublicKey(BARK_PROGRAM_ID)
     );
 
-    // Derive PDA for the BARK sale token account
+    // Get PDA for the BARK sale token account
     const [barkSaleTokenAccount] = web3.PublicKey.findProgramAddressSync(
       [barkSaleAccount.toBuffer(), barkMint.toBuffer()],
       new web3.PublicKey(BARK_PROGRAM_ID)
     );
 
     // Convert the amount to the smallest unit (BARK token has 9 decimals)
-    const amountBN = new BN(amount * 1e9);
+    const amountBN = new BN(amount * 1e9); // Convert to 9 decimals
 
     // Prepare the transaction with necessary accounts and instructions
     const tx = await program.methods
-      .buyToken(amountBN, parseInt(tokenType)) // Pass the amount with the correct decimals
+      .buyToken(amountBN, parseInt(tokenType))  // Pass the amount with the correct decimals
       .accounts({
         barkSaleAccount,
         userTokenAccount,
@@ -56,22 +52,17 @@ export async function createBuyTokenTransaction(
 
     return tx;
   } catch (error) {
-    console.error('Error creating transaction:', error.message);
-    throw new Error(`Transaction creation failed: ${error.message}`);
+    console.error('Error creating transaction:', error);
+    throw error;
   }
 }
 
 function getTokenMintByType(tokenType: string): string {
-  const tokenMap: { [key: string]: string } = {
-    "1": TOKEN_MINTS.USDT,
-    "2": TOKEN_MINTS.USDC,
-    "3": "So11111111111111111111111111111111111111112", // wSOL address
-    "4": TOKEN_MINTS.PAYPAL_USD,
-  };
-
-  if (!tokenMap[tokenType]) {
-    throw new Error(`Invalid token type: ${tokenType}`);
+  switch (tokenType) {
+    case "1": return TOKEN_MINTS.USDT; // USDT
+    case "2": return TOKEN_MINTS.USDC; // USDC
+    case "3": return TOKEN_MINTS.SOL;  // SOL
+    case "4": return TOKEN_MINTS.PAYPAL_USD; // PAYPAL moved to "4"
+    default: throw new Error("Invalid token type");
   }
-
-  return tokenMap[tokenType];
 }

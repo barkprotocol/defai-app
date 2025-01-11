@@ -25,7 +25,7 @@ export function ParticleSystem() {
 
   useEffect(() => {
     const img = new Image();
-    img.src = '/BARK-logo.png';
+    img.src = 'https://ucarecdn.com/8aa0180d-1112-4aea-8210-55b266c3fb44/bark.png';
     img.onload = () => {
       btbLogoRef.current = img;
     };
@@ -52,7 +52,7 @@ export function ParticleSystem() {
     particles.current = [];
     const numParticles = Math.floor((width * height) / 20000);
     const numBARKLogos = Math.floor(numParticles * 0.1);
-    
+
     // Create regular particles
     for (let i = 0; i < numParticles - numBARKLogos; i++) {
       particles.current.push({
@@ -62,7 +62,7 @@ export function ParticleSystem() {
         vy: (Math.random() - 0.5) * 0.6,
         size: Math.random() * 2 + 2,
         alpha: Math.random() * 40 + 40,
-        isBARK: false
+        isBARK: false,
       });
     }
 
@@ -77,7 +77,7 @@ export function ParticleSystem() {
         alpha: Math.random() * 20 + 40,
         isBARK: true,
         rotation: Math.random() * 360,
-        rotationSpeed: (Math.random() - 0.5)
+        rotationSpeed: (Math.random() - 0.5),
       });
     }
   };
@@ -93,18 +93,18 @@ export function ParticleSystem() {
 
     const render = () => {
       if (!canvas || !ctx) return;
-      
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       const primaryColor = theme === 'dark' ? [227, 30, 36] : [227, 30, 36];
-      
+
       // Draw connections
       particles.current.forEach((particle, i) => {
         particles.current.forEach((other, j) => {
           if (i !== j) {
             const d = Math.hypot(particle.x - other.x, particle.y - other.y);
             const maxDist = particle.isBARK || other.isBARK ? 120 : 80;
-            
+
             if (d < maxDist) {
               const alpha = (1 - d / maxDist) * 30;
               ctx.strokeStyle = `rgba(${primaryColor.join(',')},${alpha * 0.15})`;
@@ -121,7 +121,7 @@ export function ParticleSystem() {
       particles.current.forEach(particle => {
         particle.x += particle.vx;
         particle.y += particle.vy;
-        
+
         // Wrap around screen edges
         if (particle.x < 0) particle.x = canvas.width;
         if (particle.x > canvas.width) particle.x = 0;
@@ -129,8 +129,10 @@ export function ParticleSystem() {
         if (particle.y > canvas.height) particle.y = 0;
 
         if (particle.isBARK && btbLogoRef.current) {
-          particle.rotation! += particle.rotationSpeed!;
-          
+          if (particle.rotation !== undefined) {
+            particle.rotation += particle.rotationSpeed!;
+          }
+
           ctx.save();
           ctx.translate(particle.x, particle.y);
           ctx.rotate((particle.rotation! * Math.PI) / 180);
@@ -148,25 +150,25 @@ export function ParticleSystem() {
           ctx.translate(particle.x, particle.y);
           ctx.rotate(frameCount * 0.02);
           ctx.beginPath();
-          
+
           // Draw star shape
           for (let i = 0; i < 5; i++) {
             const angle = (Math.PI * 2 * i) / 5;
             const x = Math.cos(angle) * particle.size;
             const y = Math.sin(angle) * particle.size;
-            
+
             if (i === 0) {
               ctx.moveTo(x, y);
             } else {
               ctx.lineTo(x, y);
             }
-            
+
             const innerAngle = angle + (Math.PI * 2) / 10;
             const innerX = Math.cos(innerAngle) * (particle.size * 0.4);
             const innerY = Math.sin(innerAngle) * (particle.size * 0.4);
             ctx.lineTo(innerX, innerY);
           }
-          
+
           ctx.closePath();
           ctx.fillStyle = `rgba(${primaryColor.join(',')},${particle.alpha * 0.2})`;
           ctx.fill();

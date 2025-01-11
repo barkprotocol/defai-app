@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+
+Sitemap: https://bark.finance/sitemap.xml

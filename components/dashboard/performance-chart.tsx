@@ -90,7 +90,7 @@ export function UserPerformance() {
               <Line
                 type="monotone"
                 dataKey="value"
-                stroke="hsl(var(--primary))"
+                stroke="hsl(var(--dark-gray))"
                 strokeWidth={2}
                 dot={false}
                 activeDot={{ r: 6, className: "animate-pulse" }}

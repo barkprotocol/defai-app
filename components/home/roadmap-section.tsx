@@ -2,11 +2,12 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { CheckCircle2, Circle, Rocket, Lock, Users, Shield, Zap } from "lucide-react";
+import { CheckCircle2, Circle, Rocket, Lock, Users, Shield, Zap } from 'lucide-react';
 import { useInView } from "react-intersection-observer";
 import { cn } from "@/lib/utils";
-import { LucideIcon } from "lucide-react";
+import { LucideIcon } from 'lucide-react';
 
+// Define the Milestone type to improve typing
 interface Milestone {
   quarter: string;
   title: string;
@@ -15,6 +16,7 @@ interface Milestone {
   icon: LucideIcon;
 }
 
+// List of milestones data
 const milestones: Milestone[] = [
   {
     quarter: "Q1 2024",
@@ -66,39 +68,40 @@ const milestones: Milestone[] = [
   }
 ];
 
+// Type for MilestoneCardProps
 interface MilestoneCardProps extends Milestone {
   index: number;
   inView: boolean;
 }
 
-function MilestoneCard({ quarter, title, status, items, icon: Icon, index, inView }: MilestoneCardProps) {
+// MilestoneCard Component
+const MilestoneCard: React.FC<MilestoneCardProps> = ({ quarter, title, status, items, icon: Icon, index, inView }) => {
   return (
     <Card 
       className={cn(
         "relative overflow-hidden transition-all duration-700 transform",
         inView ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0",
-        status === "current" && "border-gray-700"
+        status === "current" && "border-[#DBCFC7]"
       )}
       style={{ transitionDelay: `${index * 200}ms` }}
     >
       <CardContent className="p-6">
         <div className="flex items-center justify-between mb-4">
           <div>
-            {/* Updated badge color based on status */}
             <Badge variant={
               status === "completed" ? "secondary" :
               status === "current" ? "default" : "outline"
             } 
             className={cn(
-              status === "completed" && "bg-[#DBCFC7] text-black", // Light color for completed
-              status === "current" && "bg-black text-white", // Black for current
-              status === "upcoming" && "bg-[#DBCFC7] text-black" // Light color for upcoming
+              status === "completed" && "bg-[#DBCFC7] text-gray-950",
+              status === "current" && "bg-gray-950 text-white dark:bg-white dark:text-gray-950",
+              status === "upcoming" && "bg-gray-100 text-gray-950 dark:bg-gray-700 dark:text-white"
             )}>
               {quarter}
             </Badge>
-            <h3 className="text-xl font-semibold mt-2">{title}</h3>
+            <h3 className="text-xl font-semibold mt-2 text-gray-900 dark:text-white">{title}</h3>
           </div>
-          <div className="bg-gray-200 text-gray-800 w-12 h-12 rounded-xl flex items-center justify-center">
+          <div className="bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white w-12 h-12 rounded-xl flex items-center justify-center" aria-hidden="true">
             <Icon className="h-6 w-6" />
           </div>
         </div>
@@ -106,15 +109,15 @@ function MilestoneCard({ quarter, title, status, items, icon: Icon, index, inVie
           {items.map((item, i) => (
             <li key={i} className="flex items-center gap-2">
               {status === "completed" ? (
-                <CheckCircle2 className="h-5 w-5 text-gray-600" />
+                <CheckCircle2 className="h-5 w-5 text-[#DBCFC7]" aria-hidden="true" />
               ) : status === "current" ? (
-                <Circle className="h-5 w-5 text-gray-700 animate-pulse" />
+                <Circle className="h-5 w-5 text-[#DBCFC7] animate-pulse" aria-hidden="true" />
               ) : (
-                <Lock className="h-5 w-5 text-gray-400" />
+                <Lock className="h-5 w-5 text-gray-400" aria-hidden="true" />
               )}
               <span className={cn(
                 "text-sm",
-                status === "upcoming" && "text-gray-400"
+                status === "upcoming" ? "text-gray-400" : "text-gray-700 dark:text-gray-300"
               )}>
                 {item}
               </span>
@@ -124,21 +127,22 @@ function MilestoneCard({ quarter, title, status, items, icon: Icon, index, inVie
       </CardContent>
     </Card>
   );
-}
+};
 
-export function RoadmapSection() {
+// RoadmapSection Component
+export const RoadmapSection: React.FC = () => {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1
   });
 
   return (
-    <section className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_70%,_var(--tw-gradient-stops))] from-gray-200/5 to-transparent" />
+    <section className="py-24 relative overflow-hidden bg-gray-100 dark:bg-gray-900" aria-labelledby="roadmap-title">
+      <div className="absolute inset-0 bg-gray-100 dark:bg-gray-950" aria-hidden="true" />
       <div className="container mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h2 className="text-4xl font-bold mb-4 text-gray-800">Our Journey</h2>
-          <p className="text-xl text-gray-600">
+          <h2 id="roadmap-title" className="text-4xl font-bold mb-4 text-gray-900 dark:text-white">Our Journey</h2>
+          <p className="text-xl text-gray-600 dark:text-gray-300">
             From concept to reality - the BARK roadmap
           </p>
         </div>
@@ -156,4 +160,4 @@ export function RoadmapSection() {
       </div>
     </section>
   );
-}
+};

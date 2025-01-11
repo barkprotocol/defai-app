@@ -74,7 +74,7 @@ export function DashboardMetrics() {
       {metrics.map((metric, index) => (
         <Card 
           key={metric.title}
-          className="transition-all duration-300 hover:scale-105"
+          className="transition-all duration-300 hover:scale-105 hover:bg-gray-800 hover:shadow-xl"
           style={{
             animationDelay: `${index * 100}ms`,
             animation: "fade-in 0.5s ease-out forwards",
@@ -84,7 +84,6 @@ export function DashboardMetrics() {
             <CardTitle className="text-sm font-medium">
               {metric.title}
             </CardTitle>
-            {/* Updated icon color */}
             <metric.icon className="h-4 w-4 text-[#dbcfc7] animate-pulse" />
           </CardHeader>
           <CardContent>
@@ -98,7 +97,7 @@ export function DashboardMetrics() {
             <p className="text-xs text-muted-foreground flex items-center gap-1">
               <span 
                 className={`flex items-center ${
-                  metric.trend === "up" ? "text-green-500" : "text-dark-gray"
+                  metric.trend === "up" ? "text-green-500" : "text-red-500"
                 }`}
               >
                 <TrendingUp className={`h-3 w-3 ${
