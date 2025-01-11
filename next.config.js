@@ -1,10 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
-  
+
   eslint: {
-    ignoreDuringBuilds: true,  // Ignore ESLint errors during build
-    ignoreBuildErrors: true,   // Allow builds even when there are ESLint errors
+    ignoreDuringBuilds: true,  // Ignore ESLint errors during build (this is the correct key now)
   },
 
   images: { 
@@ -47,9 +46,6 @@ const nextConfig = {
 
   // Customize build directory for static exports (optional)
   distDir: 'build', 
-
-  // Enable SWC for faster build times (default behavior)
-  swcMinify: true,  
 };
 
 module.exports = nextConfig;
