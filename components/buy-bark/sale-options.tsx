@@ -47,9 +47,7 @@ export function SaleOptions() {
       {options.map((option) => (
         <Card
           key={option.title}
-          className={`relative overflow-hidden transition-all duration-300 hover:shadow-xl dark:bg-gray-800 dark:text-white ${
-            selectedOption === option.title ? "ring-2 ring-primary" : ""
-          } bg-white text-gray-950 shadow-md rounded-lg`}
+          className={`relative overflow-hidden transition-all duration-300 dark:bg-gray-800 dark:text-white bg-white text-gray-950 shadow-md rounded-lg`}
           onClick={() => setSelectedOption(option.title)}
         >
           <div className="absolute top-4 right-4">
@@ -81,7 +79,7 @@ export function SaleOptions() {
               ))}
             </ul>
             <Button
-              className="w-full bg-black text-white"
+              className="w-full bg-black text-white hover:bg-gray-800 transition-all"
               size="lg"
               onClick={() => setIsBuyModalOpen(true)}
               variant={option.title === "Strategic Sale" ? "outline" : "default"}

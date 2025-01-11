@@ -14,12 +14,12 @@ interface PurchaseFormProps {
 
 export function PurchaseForm({ onSuccess }: PurchaseFormProps) {
   const { purchaseToken, isLoading } = useTokenPurchase();
-  const [amount, setAmount] = useState("");
-  const [tokenType, setTokenType] = useState("3"); // Default to SOL
+  const [amount, setAmount] = useState<string>("");
+  const [tokenType, setTokenType] = useState<string>("3"); // Default to SOL
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Validate amount
     if (!amount || parseFloat(amount) <= 0) {
       toast.error("Please enter a valid amount");
@@ -79,7 +79,7 @@ export function PurchaseForm({ onSuccess }: PurchaseFormProps) {
                 </SelectItem>
                 <SelectItem value="2">
                   <img
-                    src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png"
+                    src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png?v=040"
                     alt="USDC"
                     className="w-5 h-5 mr-2"
                   />
@@ -87,7 +87,7 @@ export function PurchaseForm({ onSuccess }: PurchaseFormProps) {
                 </SelectItem>
                 <SelectItem value="3">
                   <img
-                    src="https://cryptologos.cc/logos/solana-sol-logo.png"
+                    src="https://cryptologos.cc/logos/solana-sol-logo.png?v=040"
                     alt="SOL"
                     className="w-5 h-5 mr-2"
                   />
@@ -105,9 +105,9 @@ export function PurchaseForm({ onSuccess }: PurchaseFormProps) {
             </Select>
           </div>
 
-          <Button 
-            type="submit" 
-            className="w-full" 
+          <Button
+            type="submit"
+            className="w-full"
             disabled={isLoading || !amount || parseFloat(amount) <= 0}
           >
             {isLoading ? "Processing..." : "Buy BARK"}

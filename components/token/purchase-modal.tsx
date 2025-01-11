@@ -12,20 +12,31 @@ interface PurchaseModalProps {
 }
 
 export function PurchaseModal({ isOpen, onClose }: PurchaseModalProps) {
-  const { connected, connecting, disconnect } = useWallet();
+  const { connected, connecting, disconnect, connect } = useWallet();
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
+  // Reset loading state when modal is opened/closed
   useEffect(() => {
-    // Reset loading state when modal is opened/closed
     if (!isOpen) {
       setIsLoading(false);
+    } else {
+      // If modal opens, attempt to auto-connect if not already connected
+      if (!connected && !connecting) {
+        handleWalletConnect();
+      }
     }
-  }, [isOpen]);
+  }, [isOpen, connected, connecting]);
 
   const handleWalletConnect = async () => {
     if (!connected && !connecting) {
       setIsLoading(true);
-      // You could add logic to handle automatic wallet connection if required
+      try {
+        await connect(); // Attempt to connect the wallet
+      } catch (error) {
+        console.error("Wallet connection failed:", error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
@@ -40,14 +51,23 @@ export function PurchaseModal({ isOpen, onClose }: PurchaseModalProps) {
         </DialogHeader>
 
         <div className="py-4">
+          {/* Show wallet connection button if not connected */}
           {!connected ? (
             <div className="text-center">
               <p className="mb-4 text-sm text-muted-foreground">
                 Connect your wallet to buy BARK tokens
               </p>
-              <WalletConnectButton onClick={handleWalletConnect} />
+              <WalletConnectButton
+                onClick={handleWalletConnect}
+                className="bg-black text-white hover:bg-gray-800"
+                disabled={isLoading} // Disable button while connecting
+              />
+              {isLoading && (
+                <p className="mt-4 text-sm text-muted-foreground">Connecting...</p>
+              )}
             </div>
           ) : (
+            // Show purchase form if connected
             <PurchaseForm onSuccess={onClose} />
           )}
         </div>

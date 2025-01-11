@@ -4,25 +4,42 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { DollarSign, ArrowRight } from "lucide-react";
-import { calculateTokenAmount, calculateBarkAmount, calculateVestingAmount } from "@/lib/utils/token-calculations";
-import { RECOMMENDED_AMOUNTS } from "@/lib/constants/sale";
 import { Modal } from "@/components/ui/modal";
 import { Card, CardContent } from "@/components/ui/card";
 
-// Helper functions (example)
-const calculateTokenAmount = (usdAmount: number) => usdAmount / 0.00001; // Example formula
-const calculateBarkAmount = (usdAmount: number) => usdAmount / 0.00001; // Example formula
-const calculateVestingAmount = (usdAmount: number) => usdAmount * 0.5; // Example formula
+// Utility functions with two arguments
+const calculateTokenAmount = (usdAmount: number, pricePerToken: number) => {
+  return usdAmount / pricePerToken;
+};
+
+const calculateBarkAmount = (usdAmount: number, pricePerBark: number) => {
+  return usdAmount / pricePerBark;
+};
+
+const calculateVestingAmount = (usdAmount: number, pricePerVesting: number) => {
+  return usdAmount * pricePerVesting;
+};
+
+// Prices for tokens in USD (define prices here)
+const PRICES = {
+  BARK: 0.00001, // Price for BARK token
+  VESTING: 0.000025, // Price for VESTING token
+  SOL: 220,  // Example price for SOL token (1 SOL = $220 in this case)
+};
+
+// Example recommended amounts
+const RECOMMENDED_AMOUNTS = [10, 50, 100, 500, 1000];
 
 export function TokenCalculator() {
   const [amount, setAmount] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
+  // Calculate token amounts based on the input USD amount
   const tokenInfo = amount
     ? {
-        bark: calculateBarkAmount(Number(amount)),
-        vesting: calculateVestingAmount(Number(amount)),
-        sol: calculateTokenAmount(Number(amount)),
+        bark: calculateBarkAmount(Number(amount), PRICES.BARK),
+        vesting: calculateVestingAmount(Number(amount), PRICES.VESTING),
+        sol: calculateTokenAmount(Number(amount), PRICES.SOL),
       }
     : null;
 
@@ -32,7 +49,7 @@ export function TokenCalculator() {
       <Card className="flex-1 max-w-[650px] mx-auto hover:shadow-lg transition-all duration-300 p-6 rounded-lg bg-white dark:bg-gray-950">
         <CardContent>
           <h2 className="text-xl font-bold mb-4 text-black dark:text-white text-center">Calculate Token Amount</h2>
-          
+
           <div className="space-y-6">
             <div>
               <label className="text-sm font-medium mb-2 block text-black dark:text-white">Enter Amount in USD</label>
@@ -68,7 +85,7 @@ export function TokenCalculator() {
                     <span className="text-sm text-muted-foreground">Amount in BARK:</span>
                     <span className="font-mono">{tokenInfo.bark.toLocaleString()} BARK</span>
                   </div>
-                  <div className="text-xs text-muted-foreground">Price: $0.00001 per BARK</div>
+                  <div className="text-xs text-muted-foreground">Price: ${PRICES.BARK} per BARK</div>
                 </div>
                 <div className="bg-primary/5 dark:bg-primary/10 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-1">
@@ -77,14 +94,14 @@ export function TokenCalculator() {
                     </div>
                     <span className="font-mono">{tokenInfo.vesting.toLocaleString()} VESTING</span>
                   </div>
-                  <div className="text-xs text-muted-foreground">Price: $0.000025 per VESTING (50% discount)</div>
+                  <div className="text-xs text-muted-foreground">Price: ${PRICES.VESTING} per VESTING (50% discount)</div>
                 </div>
                 <div className="bg-sol/5 dark:bg-sol/10 rounded-lg p-4">
                   <div className="flex items-center justify-between mb-1">
                     <span className="text-sm text-muted-foreground">Amount in SOL:</span>
                     <span className="font-mono">{tokenInfo.sol.toLocaleString()} SOL</span>
                   </div>
-                  <div className="text-xs text-muted-foreground">Price: $220 per SOL</div>
+                  <div className="text-xs text-muted-foreground">Price: ${PRICES.SOL} per SOL</div>
                 </div>
               </div>
             )}

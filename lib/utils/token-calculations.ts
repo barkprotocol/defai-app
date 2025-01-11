@@ -3,7 +3,7 @@ import { PublicKey } from "@solana/web3.js";
 // Prices for tokens in USD
 export const PRICES = {
   BARK: 0.00001, // Price for BARK token (BARK)
-  VESTING: 0.000025, // Example price for VESTING token
+  VESTING: 0.000025, // Price for VESTING token
   USDT: 1, // Price for USDT (or any other token)
   USDC: 1, // Price for USDC
   SOL: 220,  // Example price for SOL token (1 SOL = $220 in this case)
@@ -17,8 +17,8 @@ export const CONFIG = {
   OWNER_INITIALIZE_WALLET: new PublicKey("BARKkeAwhTuFzcLHX4DjotRsmjXQ1MshGrZbn1CUQqMo"),
   OWNER_TOKEN_RECEIVE_WALLET: new PublicKey("BARKkeAwhTuFzcLHX4DjotRsmjXQ1MshGrZbn1CUQqMo"),
   COMMITMENT: "confirmed" as const,
-  MIN_AMOUNT: "0.0001",
-  DECIMALS: 9,
+  MIN_AMOUNT: "0.0001", // Minimum purchase amount for tokens
+  DECIMALS: 9, // Decimal precision for tokens like SOL
   CURRENT_SUPPLY: 18_190_670_416.27 * 1_000_000_000,  // Convert the current supply to the smallest unit (9 decimals)
 };
 
@@ -55,6 +55,8 @@ export function calculateTokenAmount(usdAmount: number, token: keyof typeof PRIC
   }
 
   const amount = usdAmount / PRICES[token];
+
+  // If token is SOL, adjust the amount to account for the token's decimals
   return token === 'SOL' ? amount * Math.pow(10, CONFIG.DECIMALS) : amount;
 }
 

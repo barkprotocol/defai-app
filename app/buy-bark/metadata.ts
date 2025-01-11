@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'BARK Token Public Sale - Limited Time Opportunity',
-    description: 'Don\'t miss out on the BARK Finance public sale. Get BARK tokens at $0.001 and be part of the future of DeFi on Solana.',
-    images: ['/BARK-logo.png'],
+    description: 'Don\'t miss out on the BARK Finance public sale. Get BARK tokens at $0.00001 and be part of the future of DeFi on Solana.',
+    images: ['https://ucarecdn.com/8aa0180d-1112-4aea-8210-55b266c3fb44/bark.png'],
   },
 };

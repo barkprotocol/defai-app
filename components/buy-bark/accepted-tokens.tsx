@@ -4,25 +4,25 @@ const ACCEPTED_TOKENS = [
   {
     symbol: "USDT",
     name: "Tether USD",
-    iconUrl: "https://cryptoicons.org/api/icon/usdt/200", // Example URL for USDT
+    iconUrl: "https://cryptologos.cc/logos/tether-usdt-logo.png?v=040",
     color: "black"
   },
   {
     symbol: "USDC",
     name: "USD Coin",
-    iconUrl: "https://cryptoicons.org/api/icon/usdc/200", // Example URL for USDC
+    iconUrl: "https://cryptologos.cc/logos/usd-coin-usdc-logo.png?v=040",
     color: "black"
   },
   {
     symbol: "SOL",
     name: "Solana",
-    iconUrl: "https://cryptoicons.org/api/icon/sol/200", // Example URL for Solana
+    iconUrl: "https://cryptologos.cc/logos/solana-sol-logo.png?v=040",
     color: "black"
   },
   {
     symbol: "ETH",
     name: "Ethereum",
-    iconUrl: "https://cryptoicons.org/api/icon/eth/200", // Example URL for Ethereum
+    iconUrl: "https://cryptologos.cc/logos/ethereum-eth-logo.png?v=040",
     color: "black"
   }
 ];
